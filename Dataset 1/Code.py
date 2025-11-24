@@ -11,6 +11,8 @@ adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 1/Ali
 # ------------------------------- Print the contents of this file to see what it contains
 print(adata)
 
+# ------------------------------- Add prefix to barcodes (convert to string first)
+adata.obs['barcode'] = 'Dataset 1/' + adata.obs['barcode'].astype(str)
 
 
 # ------------------------------- Define columns and their descriptions
