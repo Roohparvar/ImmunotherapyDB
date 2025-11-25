@@ -7,10 +7,18 @@
 - **Unique patients:** 3  
 - **Sample types:** Blood, Tumor  
 - **Timepoints:** Pre-Infusion, Post-Infusion 
+- The dataset includes **gene expression**, **TCR**, and **metadata** files.
 
 # Dataset 2
 - **First author:** Ayse Bassez  
 - **Corresponding author(s):** Diether Lambrechts, Ann Smeets 
 - **DOI:** [https://doi.org/10.1038/s41591-021-01323-8](https://doi.org/10.1038/s41591-021-01323-8)
+- Cancer type: Hormone receptor-positive or triple-negative breast cancer (TNBC)
+- Treatments: Anti-PD-1 (Pembrolizumab) ± Neoadjuvant chemotherapy
+- Unique patients: 42
+- Sample types: Tumor
+- Timepoints: Pre-Infusion, Post-Infusion
+- The dataset includes gene expression, TCR, and metadata files.
+
 
 

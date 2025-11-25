@@ -2,23 +2,85 @@ import scanpy as sc
 import anndata as ad
 import pandas as pd
 import os
-
+import scipy.sparse as sp
 
 
 # ------------------------------- Load the main .h5ad file
-adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 1/Ali_ClinCanRes_2024_data.h5ad")
+adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Bassez_NatMed_2021_data.h5ad")
 
 # ------------------------------- Print the contents of this file to see what it contains
 print(adata)
 
+adata.obs['cell_id'] = 'Dataset 2/' + adata.obs['cell_id'].astype(str)
+
+
+import scanpy as sc
+import anndata as ad
+import pandas as pd
+import scipy.sparse as sp
+
+# ------------------------------- Load file
+adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Bassez_NatMed_2021_data.h5ad")
+
+print(adata)
+
+# ------------------------------- Extract first 5 cells
+adata_5 = adata[:5, :].copy()
+
+# ------------------------------- Select first 20 genes
+gene_list = adata_5.var_names[:20]
+adata_5_20 = adata_5[:, gene_list]
+
+# ------------------------------- Convert Gene Expression (X) to DataFrame
+if sp.issparse(adata_5_20.X):
+    gene_expr = pd.DataFrame(adata_5_20.X.toarray(),
+                             index=adata_5_20.obs_names,
+                             columns=adata_5_20.var_names)
+else:
+    gene_expr = pd.DataFrame(adata_5_20.X,
+                             index=adata_5_20.obs_names,
+                             columns=adata_5_20.var_names)
+
+# ------------------------------- Metadata
+metadata = adata_5.obs.copy()
+
+# ------------------------------- Write to Excel
+output_path = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Processed/first5cells.xlsx"
+with pd.ExcelWriter(output_path) as writer:
+    gene_expr.to_excel(writer, sheet_name="GeneExpression_20genes")
+    metadata.to_excel(writer, sheet_name="Metadata")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
 # ------------------------------- Add prefix to barcodes (convert to string first)
-adata.obs['barcode'] = 'Dataset 1/' + adata.obs['barcode'].astype(str)
 
+adata.obs['barcode'] = (
+    "Dataset 2/" +
+    adata.obs['barcode'].astype(str).str.split('_').str[-1]
+)
 
-# ------------------------------- Define columns and their descriptions
-output_dir = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 1/Processed"
+# ------------------------------- Output directory and Excel file
+output_dir = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Processed"
 excel_file = os.path.join(output_dir, "ObsColumns_Descriptions.xlsx")
 
+# ------------------------------- Define columns and their descriptions
 columns_info = [
     ("original_id", "Original ID of the cell or sample in the raw dataset"),
     ("dataset", "Dataset from which this cell/sample comes"),
@@ -77,28 +139,44 @@ df.to_excel(excel_file, index=False)
 
 
 
+# ------------------------------- Count unique patients and cells
+print("Unique patients:")
+print(adata.obs['patient_id'].nunique())
+
+print("Cells per patient:")
+print(adata.obs['patient_id'].value_counts())
+
+print("Cells per tissue type:")
+print(adata.obs['tissue'].value_counts())
+
+print("Cells per timepoint:")
+print(adata.obs['timepoint_pre_post'].value_counts())
+
+
+print("treatment_type:")
+print(adata.obs['treatment_type'].value_counts())
+
+
+
 # ------------------------------- Extract and save the main gene expression matrix
-gene_expr_df = pd.DataFrame(
-    adata.X.toarray() if hasattr(adata.X, "toarray") else adata.X,
-    index=adata.obs['barcode'],   # Use cell barcodes as row indices
-    columns=adata.var_names       # Use gene names as column headers
-)
 
-# Add the barcode as the first column in the DataFrame
-gene_expr_df.insert(0, 'barcode', gene_expr_df.index)
+# Convert to sparse if not already
+X_sparse = sp.csr_matrix(adata.X) if not sp.issparse(adata.X) else adata.X
 
-# Create a new AnnData object containing only the gene expression matrix
+# Create new AnnData with only gene expression and barcodes
 adata_gene = ad.AnnData(
-    X=gene_expr_df.iloc[:,1:].values,              # Expression values only (exclude barcode)
-    obs=pd.DataFrame({'barcode': gene_expr_df['barcode'].values}),  # Cell metadata with barcode
-    var=pd.DataFrame(index=adata.var_names)       # Gene metadata
+    X=X_sparse,
+    obs=pd.DataFrame({'barcode': adata.obs['barcode'].values}),
+    var=pd.DataFrame(index=adata.var_names)
 )
 
-# Define the output path for saving the gene expression matrix
+# Define output path
 gene_file = os.path.join(output_dir, "GeneExpression_matrix.h5ad")
 
-# Save the AnnData object to an .h5ad file
+# Save
 adata_gene.write(gene_file)
+
+print(f"Gene expression matrix saved as sparse at: {gene_file}")
 
 
 
@@ -160,7 +238,11 @@ adata_meta.write(meta_file)
 
 
 
-# ------------------------------- Load the saved AnnData objects
+# ------------------------------- Extract and save all metadata excluding TCR columns
+
+# -------------------------------------- Select 20 cells that have TCR
+
+
 gene_file = os.path.join(output_dir, "GeneExpression_matrix.h5ad")
 tcr_file = os.path.join(output_dir, "TCR_matrix.h5ad")
 meta_file = os.path.join(output_dir, "Metadata_matrix.h5ad")
@@ -169,31 +251,8 @@ adata_gene = ad.read_h5ad(gene_file)
 adata_tcr = ad.read_h5ad(tcr_file)
 adata_meta = ad.read_h5ad(meta_file)
 
-# ------------------------------- Convert X to dense if sparse and create a DataFrame for gene expression
-if hasattr(adata_gene.X, "toarray"):  
-    X_dense = adata_gene.X.toarray()
-else:
-    X_dense = adata_gene.X
 
-gene_df = pd.DataFrame(X_dense, index=adata_gene.obs['barcode'], columns=adata_gene.var_names)
-gene_df = gene_df.iloc[:20, :20]  # First 20 cells and 20 genes
-gene_df.insert(0, 'barcode', gene_df.index)
-
-# Take first 20 cells for TCR and Metadata
-tcr_df = adata_tcr.obs.iloc[:20, :]
-meta_df = adata_meta.obs.iloc[:20, :]
-
-# ------------------------------- Create a DataFrame for matrix dimensions
-matrix_info = pd.DataFrame({
-    "Matrix": ["GeneExpression", "TCR", "Metadata"],
-    "Rows": [adata_gene.X.shape[0], adata_tcr.obs.shape[0], adata_meta.obs.shape[0]],
-    "Columns": [adata_gene.X.shape[1], adata_tcr.obs.shape[1], adata_meta.obs.shape[1]]
-})
-
-# ------------------------------- Save sample and dimensions to Excel with multiple sheets
-excel_path = os.path.join(output_dir, "Sample_20_cells.xlsx")
-with pd.ExcelWriter(excel_path) as writer:
-    matrix_info.to_excel(writer, sheet_name="Matrix_Dimensions", index=False)  # New sheet with dimensions
-    gene_df.to_excel(writer, sheet_name="GeneExpression", index=False)
-    tcr_df.to_excel(writer, sheet_name="TCR", index=False)
-    meta_df.to_excel(writer, sheet_name="Metadata", index=False)
+print("Gene barcodes example:", adata_gene.obs['barcode'][:5].tolist())
+print("TCR barcodes example:", adata_tcr.obs.index[:5].tolist())
+print("Metadata barcodes example:", adata_meta.obs.index[:5].tolist())
+"""
