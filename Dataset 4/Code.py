@@ -7,13 +7,13 @@ import scipy.sparse as sp
 
 
 # ------------------------------- Load the main .h5ad file
-adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Bassez_NatMed_2021_data.h5ad")
+adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 4/Chow_CanDisc_2023_data.h5ad")
 
 print(adata)
 
 # ------------------------------- output folders
-output_dir_h5ad = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Processed/H5ad/"
-output_dir_excel = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Processed/Excel/"
+output_dir_h5ad = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 4/Processed/H5ad/"
+output_dir_excel = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 4/Processed/Excel/"
 
 
 # ------------------------------- 1. Gene expression matrix (sparse) -> H5AD

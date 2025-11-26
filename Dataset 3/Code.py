@@ -7,13 +7,12 @@ import scipy.sparse as sp
 
 
 # ------------------------------- Load the main .h5ad file
-adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Bassez_NatMed_2021_data.h5ad")
+adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 3/Caushi_Nat_2021_data.h5ad")
 
-print(adata)
 
 # ------------------------------- output folders
-output_dir_h5ad = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Processed/H5ad/"
-output_dir_excel = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 2/Processed/Excel/"
+output_dir_h5ad = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 3/Processed/H5ad/"
+output_dir_excel = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 3/Processed/Excel/"
 
 
 # ------------------------------- 1. Gene expression matrix (sparse) -> H5AD
@@ -39,14 +38,17 @@ tcr_adata = ad.AnnData(obs=tcr_data)
 tcr_adata.write_h5ad(os.path.join(output_dir_h5ad, "tcr_data.h5ad"))
 
 # ------------------------------- 3. Save a 20x20 subset of gene expression to Excel
-# Convert sparse to dense temporarily
-X_dense = adata_genes.X.toarray() if sp.issparse(adata_genes.X) else adata_genes.X
+subset_sparse = adata_genes.X[:20, :20]
 
-# Take first 20 cells and first 20 genes
+# Convert only the 20x20 slice to dense
+subset_dense = subset_sparse.toarray()
+
+# Create DataFrame
 subset_df = pd.DataFrame(
-    X_dense[:20, :20],
+    subset_dense,
     index=adata_genes.obs.index[:20],
     columns=adata_genes.var.index[:20]
 )
 
+# Save to Excel
 subset_df.to_excel(os.path.join(output_dir_excel, "gene_expression_subset_20x20.xlsx"))
