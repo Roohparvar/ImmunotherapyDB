@@ -63,3 +63,14 @@
 - **Sample types:** Blood
 - **Timepoints:** Pre-treatment / On-treatment (3 weeks, 6 weeks post-infusion)
 - The dataset includes **gene expression**, **TCR**, and **metadata** files.
+
+# Dataset 7
+- **First author:** Baolin Liu
+- **Corresponding author(s):** Weidong Han & Zemin Zhang 
+- **DOI:** [https://doi.org/10.1038/s43018-021-00292-8](https://doi.org/10.1038/s43018-021-00292-8)
+- **Cancer type:** Non-small cell lung cancer (NSCLC)
+- **Treatments:** Anti-PD-1 (Pembrolizumab) with chemotherapy
+- **Unique patients:** 36 
+- **Sample types:** Tumour, Lymph Nodes
+- **Timepoints:** Pre-treatment, On-treatment (variable times ranging from 3 to 11 weeks)
+- The dataset includes **gene expression**, **TCR**, and **metadata** files.
