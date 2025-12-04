@@ -74,3 +74,14 @@
 - **Sample types:** Tumour, Lymph Nodes
 - **Timepoints:** Pre-treatment, On-treatment (variable times ranging from 3 to 11 weeks)
 - The dataset includes **gene expression**, **TCR**, and **metadata** files.
+
+# Dataset 8
+- **First author:** Adrienne M. Luoma
+- **Corresponding author(s):** Jonathan D. Schoenfeld, and Kai W. Wucherpfennig
+- **DOI:** [https://doi.org/10.1016/j.cell.2022.06.018](https://doi.org/10.1016/j.cell.2022.06.018)
+- **Cancer type:** Head and neck squamous cell carcinoma (HNSCC)
+- **Treatments:** Anti-PD-1 (Nivolumab) monotherapy; Anti-PD-1 + Anti-CTLA-4 (Nivolumab + Ipilimumab) combination therapy (neoadjuvant)
+- **Unique patients:** 28 
+- **Sample types:** Tumour, Blood
+- **Timepoints:** Pre-treatment / On-treatment (Week 1, Week 3, Week 4 at tumour resection)
+- The dataset includes **gene expression**, **TCR**, and **metadata** files.
