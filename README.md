@@ -42,4 +42,24 @@
 - **Timepoints:** Pre-treatment, On-treatment (Day 21, Day 42)
 - The dataset includes gene expression, TCR, and metadata files.
 
+# Dataset 5
+- **First author:** Amelie Franken  
+- **Corresponding author(s):** Diether Lambrechts
+- **DOI:** [https://doi.org/10.1016/j.immuni.2024.02.007](https://doi.org/10.1016/j.immuni.2024.02.007)  
+- **Cancer type:** Head and neck squamous cell carcinoma (HNSCC)
+- **Treatments:** Anti-PD-L1 (Durvalumab) monotherapy; Anti-PD-L1 + Anti-CTLA4 (Durvalumab + Tremelimumab) combination therapy
+- **Unique patients:** 20  
+- **Sample types:** Tumour, Blood, Normal Adjacent Tissue, Lymph Nodes
+- **Timepoints:** Pre-treatment / On-treatment (at time of surgery, 14 days post-infusion)
+- The dataset includes **gene expression**, **TCR**, and **metadata** files.
 
+# Dataset 6
+- **First author:** Niloufar Khojandi
+- **Corresponding author(s):** Ryan M Teague 
+- **DOI:** [https://doi.org/10.1007/s00262-022-03263-9](https://doi.org/10.1007/s00262-022-03263-9)  
+- **Cancer type:** Melanoma
+- **Treatments:** Anti-PD-1 (Nivolumab) monotherapy; Anti-PD-1 + Anti-CTLA-4 (Nivolumab + Ipilimumab) combination therapy
+- **Unique patients:** 2  
+- **Sample types:** Blood
+- **Timepoints:** Pre-treatment / On-treatment (3 weeks, 6 weeks post-infusion)
+- The dataset includes **gene expression**, **TCR**, and **metadata** files.
