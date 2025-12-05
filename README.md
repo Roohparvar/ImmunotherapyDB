@@ -85,3 +85,14 @@
 - **Sample types:** Tumour, Blood
 - **Timepoints:** Pre-treatment / On-treatment (Week 1, Week 3, Week 4 at tumour resection)
 - The dataset includes **gene expression**, **TCR**, and **metadata** files.
+
+# Dataset 9
+- **First author:** Joy A. Pai
+- **Corresponding author(s):** Andrew Chow, and Ansuman T. Satpathy
+- **DOI:** [https://doi.org/10.1016/j.ccell.2023.03.009](https://doi.org/10.1016/j.ccell.2023.03.009)
+- **Cancer type:** Non–small cell lung cancer (NSCLC)
+- **Treatments:** Anti-PD-1 (Nivolumab or Pembrolizumab) neoadjuvant therapy
+- **Unique patients:** 3
+- **Sample types:** Tumour, Normal Adjacent Tissue, Lymph Nodes, Blood
+- **Timepoints:** On-treatment (variable sampling times); long-term follow-up in blood (years post-therapy)
+- The dataset includes **gene expression**, **TCR**, and **metadata** files.
