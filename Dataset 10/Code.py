@@ -7,10 +7,10 @@ import scipy.sparse as sp
 
 
 # ------------------------------- Load the main .h5ad file
-adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 10/Wang_CancerCell_2024_data_1.h5ad")
+adata = ad.read_h5ad("C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 10/Yost_NatMed_2019_data.h5ad")
 
 print(adata)
-"""
+
 # ------------------------------- output folders
 output_dir_h5ad = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 10/Processed/H5ad/"
 output_dir_excel = "C:/Users/z5551702/OneDrive - UNSW/Aim 1/Data/Dataset 10/Processed/Excel/"
@@ -50,4 +50,3 @@ subset_df = pd.DataFrame(
 )
 
 subset_df.to_excel(os.path.join(output_dir_excel, "gene_expression_subset_20x20.xlsx"))
-"""

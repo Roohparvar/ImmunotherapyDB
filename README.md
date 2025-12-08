@@ -96,3 +96,14 @@
 - **Sample types:** Tumour, Normal Adjacent Tissue, Lymph Nodes, Blood
 - **Timepoints:** On-treatment (variable sampling times); long-term follow-up in blood (years post-therapy)
 - The dataset includes **gene expression**, **TCR**, and **metadata** files.
+
+# Dataset 10
+- **First author:** Kathryn E. Yost
+- **Corresponding author(s):** Ansuman T. Satpathy, Anne Lynn S. Chang, and Howard Y. Chang 
+- **DOI:** [https://doi.org/10.1038/s41591-019-0522-3](https://doi.org/10.1038/s41591-019-0522-3)
+- **Cancer type:** Basal cell carcinoma (BCC) and squamous cell carcinoma (SCC)
+- **Treatments:** Anti-PD-1 therapy (Pembrolizumab or Cemiplimab)
+- **Unique patients:** 15
+- **Sample types:** Tumour samples only (TILs)
+- **Timepoints:** Matched pre-treatment and on-treatment tumour biopsies (Average ~54 days post-infusion for BCC, ~31 days for SCC)
+- The dataset includes **gene expression**, **TCR**, and **metadata** files.
